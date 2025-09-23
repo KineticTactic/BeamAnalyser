@@ -27,5 +27,9 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"mathjs": "^14.7.0",
+		"plotly.js-dist-min": "^3.1.0"
 	}
 }
