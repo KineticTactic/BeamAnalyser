@@ -3,20 +3,20 @@
 	import BeamCanvas from '$lib/BeamCanvas.svelte';
 	import SFDPlot from '$lib/SFDPlot.svelte';
 	import BMDPlot from '$lib/BMDPlot.svelte';
-	import { calculateBeam } from '$lib/calculations.js';
 	import InputLoads from '$lib/InputLoads.svelte';
 	import InputJoints from '$lib/InputJoints.svelte';
 	import { PointLoad } from '$lib/Load';
+	import { Beam } from '$lib/Beam';
 
 	let length = 10;
 	let loads = [];
 	let joints = [];
+	$: beam = new Beam(length, loads, joints);
 
 	let results = null;
 
 	function analyze() {
-		console.log('ANALYSING');
-		results = calculateBeam(length, loads, joints);
+		results = beam.calculateBeam();
 	}
 </script>
 
@@ -35,8 +35,8 @@
 	</button>
 </div>
 
+<BeamCanvas {beam} />
 {#if results}
-	<BeamCanvas {length} {loads} />
 	<SFDPlot data={results.sfd} />
 	<BMDPlot data={results.bmd} />
 {/if}

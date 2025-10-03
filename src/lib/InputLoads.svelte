@@ -15,7 +15,7 @@
 	//let newLoad = new Load();
 
 	export let loads = [];
-	loads = [new PointLoad(0, 10)];
+	loads = [new PointLoad(0, 10), new UniformLoad(2, 6, 5), new LinearLoad(7, 10, 1, 10)];
 
 	let selectedType = LoadTypes.POINT;
 	let pos, mag, start, end, magStart, magEnd;
