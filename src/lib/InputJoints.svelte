@@ -5,8 +5,8 @@
 	const dispatch = createEventDispatcher();
 
 	export let joints = [];
-	// joints = [new RollerJoint(0), new PinnedJoint(10)];
-	joints = [new FixedJoint(0)];
+	joints = [new RollerJoint(1), new PinnedJoint(9)];
+	// joints = [new FixedJoint(0)];
 
 	let selectedType = JointTypes.ROLLER;
 	let pos;

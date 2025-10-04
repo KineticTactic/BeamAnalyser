@@ -24,7 +24,7 @@
 			],
 			{
 				title: name,
-				margin: { l: 20, r: 20, t: 40, b: 40 },
+				margin: { l: 25, r: 20, t: 40, b: 40 },
 				autosize: true,
 				height: window.innerHeight / 3,
 				font: { size: 13 },
@@ -67,7 +67,7 @@
 			],
 			{
 				title: name,
-				margin: { l: 20, r: 20, t: 40, b: 40 },
+				margin: { l: 25, r: 20, t: 40, b: 40 },
 				autosize: true,
 				height: window.innerHeight / 3,
 				font: { size: 13 },

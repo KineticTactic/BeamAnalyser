@@ -16,7 +16,16 @@
 
 	export let loads = [];
 	// loads = [new PointLoad(0, 10), new UniformLoad(2, 6, 5), new LinearLoad(7, 10, 1, 10)];
-	loads = [new ParabolicLoad(1, 5, 1, 11), new MomentLoad(6, -10), new MomentLoad(8, 10)];
+	loads = [
+		new ParabolicLoad(1, 5, 1, 11),
+		new MomentLoad(6, -10),
+		new MomentLoad(8, 10),
+		new PointLoad(9, -5),
+		new UniformLoad(2, 7, 3),
+		new UniformLoad(1, 2, -5),
+		new LinearLoad(3, 9, 2, 4),
+		new ParabolicLoad(6, 10, 10, 1)
+	];
 
 	let selectedType = LoadTypes.POINT;
 	let pos, mag, start, end, magStart, magEnd;
