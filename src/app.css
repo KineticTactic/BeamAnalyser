@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 body,
 .pastel-bg {
 	background: #f8fafc;
@@ -10,7 +13,18 @@ body,
 .pastel-heading {
 	color: #382174;
 	letter-spacing: 1px;
+    font-family: "Tinos", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0;
 }
+
+h2.pastel-heading {
+    font-size: 1.5rem;
+    color: #40297c;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.2px;
+}
+
 .pastel-label {
 	color: #020202;
 }
@@ -25,10 +39,11 @@ body,
 	outline: none;
 }
 .pastel-button {
-	background: linear-gradient(90deg, #e0bbff 0%, #a084e8 100%);
+	background: linear-gradient(90deg, #8a29da 0%, #a084e8 100%);
 	color: #fcf9ff;
 	border: none;
 	box-shadow: 0 2px 8px 0 #e0e7ef44;
+    margin-top: 0rem;
 }
 .pastel-button:hover {
 	/* background: linear-gradient(90deg, #a084e8 0%, #e0bbff 100%); */

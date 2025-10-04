@@ -18,13 +18,10 @@
 	// loads = [new PointLoad(0, 10), new UniformLoad(2, 6, 5), new LinearLoad(7, 10, 1, 10)];
 	loads = [
 		new ParabolicLoad(1, 5, 1, 11),
-		new MomentLoad(6, -10),
 		new MomentLoad(8, 10),
-		new PointLoad(9, -5),
-		new UniformLoad(2, 7, 3),
-		new UniformLoad(1, 2, -5),
+		new UniformLoad(2, 5, -5),
 		new LinearLoad(3, 9, 2, 4),
-		new ParabolicLoad(6, 10, 10, 1)
+		new PointLoad(0.5, 10)
 	];
 
 	let selectedType = LoadTypes.POINT;
@@ -91,7 +88,7 @@
 </script>
 
 <div class="mb-4">
-	<h2 class="mb-3 text-xl font-bold">Input Loads</h2>
+	<h2 class="pastel-heading mb-3 text-xl font-bold">Input Loads</h2>
 	<div class="mb-3 flex flex-wrap items-end gap-2">
 		<select
 			bind:value={selectedType}

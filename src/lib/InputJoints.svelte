@@ -48,7 +48,7 @@
 </script>
 
 <div class="mb-4">
-	<h2 class="mb-3 text-xl font-bold">Input Joints</h2>
+	<h2 class="pastel-heading mb-3 text-xl font-bold">Input Joints</h2>
 	<div class="mb-3 flex flex-wrap items-end gap-2">
 		<select
 			bind:value={selectedType}
