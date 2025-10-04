@@ -1,38 +1,57 @@
-# sv
+# Beam Analyser
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+### [Check it out here!](https://kinetictactic.github.io/BeamAnalyser/)
 
-## Creating a project
+A modern, interactive web app for visualizing and analyzing beams under various loads and supports. Built with Svelte, Vite, Plotly.js, p5.js, and Tailwind CSS.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```sh
-# create a new project in the current directory
-npx sv create
+- 🏗️ **Beam Modeling**: Define beam length, add point loads, distributed loads, and supports.
+- 📊 **Interactive Visualization**: View real-time beam diagrams, Shear Force Diagrams (SFD), and Bending Moment Diagrams (BMD).
+- 🎨 **Pastel Theme**: Clean, modern, and accessible UI with a pastel color palette.
+- 📱 **Responsive Design**: Works great on desktop and mobile, with adaptive layout.
+- 🧮 **Robust Validation**: Input validation and error highlighting for reliable results.
+- 🔗 **Open Source**: MIT licensed and available on [GitHub](https://github.com/KineticTactic/BeamAnalyser).
 
-# create a new project in my-app
-npx sv create my-app
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [pnpm](https://pnpm.io/) (or use npm/yarn)
+
+### Installation
+
+```bash
+pnpm install
 ```
 
-## Developing
+### Development
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```bash
+pnpm dev
 ```
 
-## Building
+Open your browser to [http://localhost:5173](http://localhost:5173) to use the app.
 
-To create a production version of your app:
+### Build for Production
 
-```sh
-npm run build
+```bash
+pnpm build
 ```
 
-You can preview the production build with `npm run preview`.
+## Project Structure
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- `src/lib/` — Svelte components, beam logic, and assets
+- `src/routes/` — Main app layout and routing
+- `static/` — Static files (robots.txt, favicon, etc.)
+
+## Technologies Used
+
+- [Svelte](https://svelte.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Plotly.js](https://plotly.com/javascript/)
+- [p5.js](https://p5js.org/)
+
+---
