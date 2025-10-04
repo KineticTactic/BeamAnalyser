@@ -1,1 +1,73 @@
+body,
+.pastel-bg {
+	background: #f8fafc;
+	background: linear-gradient(120deg, #f8fafc 0%, #f3e8ff 100%);
+}
+.pastel-panel {
+	background: #f8f4fd;
+	border: 1px solid #e9d8fd;
+}
+.pastel-heading {
+	color: #382174;
+	letter-spacing: 1px;
+}
+.pastel-label {
+	color: #020202;
+}
+.pastel-input {
+	background: #f3f0fa;
+	border: 1px solid #e9d8fd;
+	color: #5a5a7a;
+	transition: border 0.2s;
+}
+.pastel-input:focus {
+	border: 1.5px solid #a084e8;
+	outline: none;
+}
+.pastel-button {
+	background: linear-gradient(90deg, #e0bbff 0%, #a084e8 100%);
+	color: #fcf9ff;
+	border: none;
+	box-shadow: 0 2px 8px 0 #e0e7ef44;
+}
+.pastel-button:hover {
+	/* background: linear-gradient(90deg, #a084e8 0%, #e0bbff 100%); */
+	color: #fcf9ff;
+	box-shadow: 0 6px 24px 0 #a084e855;
+	transform: translateY(-2px) scale(1.03);
+	transition: background 0.1s cubic-bezier(.4,0,.2,1), color 0.1s cubic-bezier(.4,0,.2,1), box-shadow 0.1s cubic-bezier(.4,0,.2,1), transform 0.1s cubic-bezier(.4,0,.2,1);
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+/* Pastel green and red button styles for consistency */
+.pastel-green-btn {
+	background: #d1fae5;
+	color: #227a5e;
+	border: none;
+	box-shadow: 0 2px 8px 0 #b9fbc033;
+	transition: background 0.18s cubic-bezier(.4,0,.2,1), color 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+}
+.pastel-green-btn:hover {
+	background: #b9fbc0;
+	color: #16634a;
+	box-shadow: 0 4px 16px 0 #a3c9a833;
+}
+.pastel-red-btn {
+	background: #ffe4ec;
+	color: #b83250;
+	border: none;
+	box-shadow: 0 2px 8px 0 #ffd6e033;
+	transition: background 0.18s cubic-bezier(.4,0,.2,1), color 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+}
+.pastel-red-btn:hover {
+	background: #ffd6e0;
+	color: #a8324a;
+	box-shadow: 0 4px 16px 0 #ffb3c633;
+}
 @import 'tailwindcss';
