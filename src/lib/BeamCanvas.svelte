@@ -9,6 +9,10 @@
 
 	let canvas;
 
+	function formatMag(val) {
+		return Number(val) % 1 === 0 ? Number(val).toString() : Number(val).toFixed(2);
+	}
+
 	let beamLength;
 	const sketch = (p5) => {
 		p5.setup = () => {
@@ -85,8 +89,8 @@
 		p5.fill('black');
 		p5.noStroke();
 		p5.textSize(12);
-		if (mag > 0) p5.text(`${mag} kN`, x - 10, p5.height / 2 - 55);
-		else p5.text(`${mag} kN`, x - 10, p5.height / 2 + 65);
+		if (mag > 0) p5.text(`${formatMag(mag)} kN`, x - 10, p5.height / 2 - 55);
+		else p5.text(`${formatMag(mag)} kN`, x - 10, p5.height / 2 + 65);
 	}
 
 	function drawArrow(p5, x1, y1, x2, y2, color = 'red') {
@@ -112,7 +116,7 @@
 		// text
 		p5.fill(0);
 		p5.textSize(12);
-		p5.text(`${mag} kN/m`, (startX + endX) / 2 - 20, p5.height / 2 - 55);
+		p5.text(`${formatMag(mag)} kN/m`, (startX + endX) / 2 - 20, p5.height / 2 - 55);
 
 		// draw series of arrows
 		const numArrows = Math.floor((endX - startX) / 30);
@@ -136,8 +140,8 @@
 		// text
 		p5.fill(0);
 		p5.textSize(12);
-		p5.text(`${magStart} kN/m`, startX + 5, p5.height / 2 - 55);
-		p5.text(`${magEnd} kN/m`, endX - 30, p5.height / 2 - 55);
+		p5.text(`${formatMag(magStart)} kN/m`, startX + 5, p5.height / 2 - 55);
+		p5.text(`${formatMag(magEnd)} kN/m`, endX - 30, p5.height / 2 - 55);
 
 		// draw arrows at start and end
 		drawArrow(
@@ -180,8 +184,8 @@
 		// text
 		p5.fill(0);
 		p5.textSize(12);
-		p5.text(`${startMag} kN/m`, startX + 5, p5.height / 2 - 55);
-		p5.text(`${endMag} kN/m`, endX - 30, p5.height / 2 - 55);
+		p5.text(`${formatMag(startMag)} kN/m`, startX + 5, p5.height / 2 - 55);
+		p5.text(`${formatMag(endMag)} kN/m`, endX - 30, p5.height / 2 - 55);
 
 		// draw arrows at start and end
 		drawArrow(
@@ -228,7 +232,7 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${mag} kN·m`, x + radius + 5, p5.height / 2 - 20);
+			p5.text(`${formatMag(mag)} kN·m`, x + radius + 5, p5.height / 2 - 20);
 		} else {
 			// counter-clockwise
 			p5.arc(x, p5.height / 2, radius * 2, radius * 2, p5.PI, 0);
@@ -249,7 +253,7 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${mag} kN·m`, x + radius + 5, p5.height / 2 + 20);
+			p5.text(`${formatMag(mag)} kN·m`, x + radius + 5, p5.height / 2 + 20);
 		}
 		// Dot
 		p5.fill('magenta');
@@ -269,7 +273,7 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${ry} kN`, x + 25, p5.height / 2 + 55);
+			p5.text(`${formatMag(ry)} kN`, x + 25, p5.height / 2 + 55);
 		}
 	}
 
@@ -283,13 +287,13 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${ry} kN`, x + 5, p5.height / 2 + 30 + ry + 15);
+			p5.text(`${formatMag(ry)} kN`, x + 5, p5.height / 2 + 30 + ry + 15);
 		} else if (ry < 0) {
 			drawArrow(p5, x, p5.height / 2 + 40, x, p5.height / 2 + 30 - ry, 'green');
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${ry} kN`, x + 5, p5.height / 2 + 30 - ry - 5);
+			p5.text(`${formatMag(ry)} kN`, x + 5, p5.height / 2 + 30 - ry - 5);
 		}
 	}
 
@@ -309,13 +313,13 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${ry} kN`, x + 25, p5.height / 2 + 55);
+			p5.text(`${formatMag(ry)} kN`, x + 25, p5.height / 2 + 55);
 		} else if (ry < 0) {
 			drawArrow(p5, x, p5.height / 2 + 35, x, p5.height / 2 + 60, 'green');
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${ry} kN`, x + 25, p5.height / 2 + 75);
+			p5.text(`${formatMag(ry)} kN`, x + 25, p5.height / 2 + 75);
 		}
 
 		if (rm !== 0) {
@@ -342,7 +346,7 @@
 			p5.fill('black');
 			p5.noStroke();
 			p5.textSize(12);
-			p5.text(`${rm} kN·m`, x + radius + 5, p5.height / 2 - 20);
+			p5.text(`${formatMag(rm)} kN·m`, x + radius + 5, p5.height / 2 - 20);
 		}
 	}
 </script>

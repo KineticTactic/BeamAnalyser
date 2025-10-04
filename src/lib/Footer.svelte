@@ -3,7 +3,7 @@
 </script>
 
 <footer
-	class="pastel-panel mx-6 mb-6 flex w-auto flex-col items-center gap-2 rounded-xl p-6 shadow-md"
+	class="pastel-panel mx-3 mb-3 flex w-auto flex-col items-center gap-2 rounded-xl p-3 shadow-md sm:mx-6 sm:mb-6 sm:p-6"
 >
 	<div class="pastel-label flex flex-col items-center gap-2 text-base font-semibold sm:flex-row">
 		Developed by Rudrajeet. <span class="text-gray-500"></span>

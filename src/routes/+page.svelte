@@ -21,10 +21,10 @@
 </script>
 
 <div class="flex flex-col">
-	<div class="m-6 flex-1">
-		<div class="flex flex-col gap-8 lg:flex-row">
+	<div class="m-3 flex-1 sm:m-6">
+		<div class="flex flex-col gap-4 sm:gap-6 lg:flex-row">
 			<!-- Left: Inputs -->
-			<div class="pastel-panel flex flex-1 flex-col gap-4 rounded-xl p-6 shadow-md">
+			<div class="pastel-panel flex flex-1 flex-col gap-2 rounded-xl p-3 shadow-md sm:gap-4 sm:p-6">
 				<h1 class="pastel-heading mb-4 text-2xl font-bold">Beam Analyser</h1>
 				<div class="mb-2">
 					<label class="pastel-label font-semibold">
@@ -47,7 +47,7 @@
 			</div>
 
 			<!-- Right: Diagram and Plots -->
-			<div class="pastel-panel flex flex-1 flex-col gap-4 rounded-xl p-6 shadow-md">
+			<div class="pastel-panel flex flex-1 flex-col gap-2 rounded-xl p-3 shadow-md sm:gap-4 sm:p-6">
 				<BeamCanvas {beam} />
 				{#if results}
 					<Plot data={results.sfd} name="Shear Force" />

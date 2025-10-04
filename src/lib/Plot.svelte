@@ -27,7 +27,23 @@
 				margin: { l: 20, r: 20, t: 40, b: 40 },
 				autosize: true,
 				height: window.innerHeight / 3,
-				font: { size: 13 }
+				font: { size: 13 },
+				paper_bgcolor: 'rgba(0,0,0,0)',
+				plot_bgcolor: 'rgba(0,0,0,0)',
+				xaxis: {
+					gridcolor: '#bdbdbd',
+					gridwidth: 0.5,
+					zeroline: true,
+					zerolinecolor: '#888',
+					zerolinewidth: 2
+				},
+				yaxis: {
+					gridcolor: '#bdbdbd',
+					gridwidth: 0.5,
+					zeroline: true,
+					zerolinecolor: '#888',
+					zerolinewidth: 2
+				}
 			}
 			// { displayModeBar: false }
 		);
@@ -54,7 +70,23 @@
 				margin: { l: 20, r: 20, t: 40, b: 40 },
 				autosize: true,
 				height: window.innerHeight / 3,
-				font: { size: 13 }
+				font: { size: 13 },
+				paper_bgcolor: 'rgba(0,0,0,0)',
+				plot_bgcolor: 'rgba(0,0,0,0)',
+				xaxis: {
+					gridcolor: '#bdbdbd',
+					gridwidth: 0.5,
+					zeroline: true,
+					zerolinecolor: '#888',
+					zerolinewidth: 2
+				},
+				yaxis: {
+					gridcolor: '#bdbdbd',
+					gridwidth: 0.5,
+					zeroline: true,
+					zerolinecolor: '#888',
+					zerolinewidth: 2
+				}
 			}
 			// { displayModeBar: false }
 		);
