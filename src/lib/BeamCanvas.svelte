@@ -4,6 +4,7 @@
 	import { JointTypes } from './Joint';
 	import { Beam } from './Beam';
 	import { onMount } from 'svelte';
+	import { max } from 'mathjs';
 
 	export let beam = new Beam(10);
 
@@ -16,10 +17,14 @@
 	let beamLength;
 	let beamHeight = 20;
 	let maxMag;
+	let maxRxnMag;
 	let maxArrowHeight;
 
 	// Store placed labels so we can check overlaps
+
 	let placedLabels = [];
+	let arrowsToDraw = [];
+	let labelsToDraw = [];
 
 	const sketch = (p5) => {
 		p5.setup = () => {
@@ -31,8 +36,11 @@
 
 		p5.draw = () => {
 			placedLabels = [];
+			arrowsToDraw = [];
+			labelsToDraw = [];
 			// calculate max mag of any load or reaction
 			maxMag = 0;
+			maxRxnMag = 0;
 			for (let load of beam.loads) {
 				if (load.type === LoadTypes.POINT) {
 					if (Math.abs(load.mag) > maxMag) maxMag = Math.abs(load.mag);
@@ -47,7 +55,7 @@
 				}
 			}
 			for (let joint of beam.joints) {
-				if (Math.abs(joint.ry) > maxMag) maxMag = Math.abs(joint.ry);
+				if (Math.abs(joint.ry) > maxRxnMag) maxRxnMag = Math.abs(joint.ry);
 			}
 
 			p5.background(255);
@@ -99,6 +107,7 @@
 				}
 			}
 
+			drawAllArrowsAndLabels(p5);
 			p5.resetMatrix();
 		};
 	};
@@ -107,76 +116,82 @@
 		drawMagArrow(p5, x, mag, 'red');
 	}
 
-	function drawMagArrow(p5, x, mag, color, label = true, unit = 'kN', endOffset = 0) {
+	function drawMagArrow(p5, x, mag, color, label = true, unit = 'kN', endOffset = 0, rxn = false) {
+		let y = (mag / (rxn ? maxRxnMag : maxMag)) * maxArrowHeight;
 		drawArrow(
 			p5,
 			x,
-			(-Math.sign(mag) * beamHeight) / 2 - (mag / maxMag) * maxArrowHeight,
+			(-Math.sign(mag) * beamHeight) / 2 - y,
 			x,
 			(-Math.sign(mag) * beamHeight) / 2 + endOffset,
 			color
 		);
 		if (label) {
-			drawLabel(
-				p5,
-				x,
-				-(mag / maxMag) * maxArrowHeight - Math.sign(mag) * beamHeight,
-				`${formatMag(mag)} ${unit}`
-			);
+			drawLabel(p5, x, -y - Math.sign(mag) * beamHeight, `${formatMag(mag)} ${unit}`);
 		}
 	}
 
 	function drawArrow(p5, x1, y1, x2, y2, color = 'red') {
-		let len = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-		let angle = p5.atan2(y2 - y1, x2 - x1);
-		let arrowSize = Math.min(7, len / 4);
-		p5.push();
-		p5.translate(x2, y2);
-		p5.rotate(angle - Math.PI / 2);
-		p5.stroke(color);
-		p5.strokeWeight(2);
-		p5.line(0, -arrowSize, 0, -len);
-		p5.fill(color);
-		p5.noStroke();
-		p5.triangle(arrowSize, -arrowSize * 2, -arrowSize, -arrowSize * 2, 0, 0);
-		p5.pop();
+		arrowsToDraw.push({ x1, y1, x2, y2, color });
 	}
 
 	function drawLabel(p5, x, y, label) {
-		p5.textSize(14);
-		let w = p5.textWidth(label);
-		let h = 16; // approximate text height
+		labelsToDraw.push({ x, y, label });
+	}
 
-		let offsetY = 0;
-
-		// Ensure label stays inside horizontal boundaries
-		let minX = -20 + w / 2;
-		let maxX = p5.width - 20 - w / 2;
-		let finalX = p5.constrain(x, minX, maxX);
-
-		// Keep shifting vertically until no overlap
-		let tries = 0;
-		while (tries < 10) {
-			let overlap = false;
-			for (let l of placedLabels) {
-				if (Math.abs(finalX - l.x) < (w + l.w) / 2 && Math.abs(y + offsetY - l.y) < (h + l.h) / 2) {
-					overlap = true;
-					offsetY -= h + 4; // move further up if overlapping
-					break;
-				}
-			}
-			if (!overlap) break;
-			tries++;
+	function drawAllArrowsAndLabels(p5) {
+		// Draw all arrows
+		for (const arrow of arrowsToDraw) {
+			let { x1, y1, x2, y2, color } = arrow;
+			let len = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+			let angle = p5.atan2(y2 - y1, x2 - x1);
+			let arrowSize = Math.min(7, len / 4);
+			p5.push();
+			p5.translate(x2, y2);
+			p5.rotate(angle - Math.PI / 2);
+			p5.stroke(color);
+			p5.strokeWeight(2);
+			p5.line(0, -arrowSize, 0, -len);
+			p5.fill(color);
+			p5.noStroke();
+			p5.triangle(arrowSize, -arrowSize * 2, -arrowSize, -arrowSize * 2, 0, 0);
+			p5.pop();
 		}
-
-		// Draw the text
-		p5.fill('black');
-		p5.noStroke();
-		p5.textAlign(p5.CENTER, p5.CENTER);
-		p5.text(label, finalX, y + offsetY);
-
-		// Save bounding box
-		placedLabels.push({ x: finalX, y: y + offsetY, w: w, h: h });
+		// Draw all labels (with overlap avoidance)
+		for (const { x, y, label } of labelsToDraw) {
+			p5.textSize(14);
+			let w = p5.textWidth(label);
+			let h = 16; // approximate text height
+			let offsetY = 0;
+			// Ensure label stays inside horizontal boundaries
+			let minX = -20 + w / 2;
+			let maxX = p5.width - 20 - w / 2;
+			let finalX = p5.constrain(x, minX, maxX);
+			// Keep shifting vertically until no overlap
+			let tries = 0;
+			while (tries < 10) {
+				let overlap = false;
+				for (let l of placedLabels) {
+					if (
+						Math.abs(finalX - l.x) < (w + l.w) / 2 &&
+						Math.abs(y + offsetY - l.y) < (h + l.h) / 2
+					) {
+						overlap = true;
+						offsetY -= h + 4; // move further up if overlapping
+						break;
+					}
+				}
+				if (!overlap) break;
+				tries++;
+			}
+			// Draw the text
+			p5.fill('black');
+			p5.noStroke();
+			p5.textAlign(p5.CENTER, p5.CENTER);
+			p5.text(label, finalX, y + offsetY);
+			// Save bounding box
+			placedLabels.push({ x: finalX, y: y + offsetY, w: w, h: h });
+		}
 	}
 
 	function drawUniformLoad(p5, startX, endX, mag) {
@@ -301,7 +316,7 @@
 		p5.line(x - 5, +40, x + 5, +40);
 
 		if (ry != 0) {
-			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20);
+			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20, true);
 		}
 	}
 
@@ -311,7 +326,7 @@
 		p5.triangle(x - 10, 30, x + 10, 30, x, 10);
 
 		if (ry !== 0) {
-			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20);
+			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20, true);
 		}
 	}
 
@@ -327,7 +342,7 @@
 		}
 
 		if (ry !== 0) {
-			drawMagArrow(p5, x, ry, 'green');
+			drawMagArrow(p5, x, ry, 'green', true, 'kN', 20, true);
 		}
 
 		if (rm !== 0) {
