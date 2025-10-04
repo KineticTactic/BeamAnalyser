@@ -43,6 +43,7 @@ input[type='number']::-webkit-outer-spin-button {
 	margin: 0;
 }
 input[type='number'] {
+    appearance: textfield;
 	-moz-appearance: textfield;
 }
 /* Pastel green and red button styles for consistency */

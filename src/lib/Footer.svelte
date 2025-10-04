@@ -40,8 +40,8 @@
 		left: 0;
 		right: 0;
 	}
-	footer-link {
-		color: #7c6ee6;
+	.footer-link {
+		color: #6155bd;
 		text-decoration: underline;
 		font-weight: 500;
 		transition: color 0.15s;

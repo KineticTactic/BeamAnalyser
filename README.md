@@ -53,5 +53,3 @@ pnpm build
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Plotly.js](https://plotly.com/javascript/)
 - [p5.js](https://p5js.org/)
-
----
