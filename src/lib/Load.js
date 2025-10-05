@@ -119,6 +119,35 @@ export class LinearLoad extends Load {
 			length = this.end - this.start;
 		}
 
+		if (this.startMag * (this.startMag + h) < 0) {
+			// startMag and endMag have different signs, so the load crosses zero within the length
+			// find the point where it crosses zero
+			let zeroPoint =
+				this.start - (this.startMag * (this.end - this.start)) / (this.endMag - this.startMag);
+			let length1 = zeroPoint - this.start;
+			let length2 = length - length1;
+
+			// calculate areas and centroids for both segments
+			let area1 = (this.startMag * length1) / 2; // triangle area
+			let centroid1 = this.start + length1 / 3; // centroid of triangle from base
+
+			let area2 = ((this.startMag + h) * length2) / 2; // triangle area
+			let centroid2 = zeroPoint + (2 * length2) / 3; // centroid of triangle from base
+
+			// let totalArea = this.startMag > 0 ? area1 - area2 : -area1 + area2;
+			// let totalMoment = area1 * centroid1 + area2 * centroid2;
+			// let centroid = totalMoment / totalArea;
+
+			let w = area1 + area2;
+			let m = area1 * (x - centroid1) + area2 * (x - centroid2);
+
+			return new LoadEffect(w, m);
+		}
+
+		// Calculate area and centroid of the trapezoid formed by the linear load
+		// Area is sum of rectangle and triangle areas
+		// Centroid is weighted average of centroids of rectangle and triangle
+
 		let rectangleArea;
 		// IF h is negative, startMag > endMag
 		// so the rectangle area is (startMag - h) * length

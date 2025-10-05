@@ -133,6 +133,7 @@
 		// Draw all arrows
 		for (const arrow of arrowsToDraw) {
 			let { x1, y1, x2, y2, color } = arrow;
+
 			let len = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 			let angle = p5.atan2(y2 - y1, x2 - x1);
 			let arrowSize = Math.min(7, len / 4);
@@ -365,7 +366,7 @@
 		const numPoints = 50;
 
 		p5.beginShape();
-		p5.fill(255, 0, 0, 100);
+		p5.fill(255, 0, 0, 160);
 		p5.noStroke();
 		p5.vertex(startX, -beamHeight / 2);
 		for (let i = 0; i <= numPoints; i++) {

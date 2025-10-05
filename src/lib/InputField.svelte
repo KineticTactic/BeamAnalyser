@@ -14,8 +14,17 @@
 		{type}
 		bind:value
 		bind:this={inputRef}
-		class="pastel-input w-16 rounded border border-[#e3d8f3] p-1 focus:ring-2 focus:ring-[#a084e8] focus:outline-none"
+		class="pastel-input rounded border border-[#e3d8f3] p-1 focus:ring-2 focus:ring-[#a084e8] focus:outline-none {type ===
+		'text'
+			? 'w-32'
+			: 'w-16'}"
 		{min}
 		on:keydown={onKeydown}
 	/>
 </label>
+
+<style>
+	label {
+		color: #503857;
+	}
+</style>

@@ -63,8 +63,12 @@ export class Beam {
 		// Solve for reactions at joints and verify equilibrium.
 		this.solveReactions();
 
-		// All roller joint reactions should be positive (upward)
 		for (let joint of this.joints) {
+			// Reactions shouldnt be NaN or undefined
+			if (isNaN(joint.ry) || joint.ry === undefined) {
+				throw new Error(`Joint reaction at position ${joint.pos} m is not a number.`);
+			}
+			// Roller joint vertical reaction should be non-negative
 			if (joint.type === JointTypes.ROLLER && joint.ry < 0) {
 				throw new Error("Roller joint reaction cannot be negative (downward).");
 			}
@@ -81,6 +85,9 @@ export class Beam {
 			netForce += load.calculateEffectAt(this.length).force;
 			netMoment += load.calculateEffectAt(this.length).moment;
 		}
+
+		console.log("Net downward force on beam: ", netForce, " kN");
+		console.log("Net moment about right end: ", netMoment, " kN.m");
 
 		if (
 			this.joints.length === 2 &&
@@ -103,8 +110,6 @@ export class Beam {
 		} else {
 			throw new Error("Unsupported joint configuration for reaction calculation.");
 		}
-
-		console.log("Net downward force on beam: ", netForce, " kN");
 	}
 
 	calculateBeam() {
