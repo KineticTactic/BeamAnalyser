@@ -12,6 +12,7 @@
 	} from "./Load.js";
 	import InputField from "./InputField.svelte";
 	import ChipSelect from "./ChipSelect.svelte";
+	import { parser } from "mathjs";
 
 	const dispatch = createEventDispatcher();
 
@@ -86,8 +87,13 @@
 		} else if (selectedType === LoadTypes.PARABOLIC) {
 			newLoad = new ParabolicLoad(start, end, magStart, magEnd);
 		} else if (selectedType === LoadTypes.CUSTOM) {
-			newLoad = new CustomLoad(start, end, loadFuncInput);
-			newLoad.preCalculateEffects(beamLength, 0.001);
+			try {
+				newLoad = new CustomLoad(start, end, loadFuncInput);
+				newLoad.preCalculateEffects(beamLength, 0.001);
+			} catch (err) {
+				alert("Error while creating custom load: " + err.message);
+				return;
+			}
 		}
 
 		loads = [...loads, newLoad];
