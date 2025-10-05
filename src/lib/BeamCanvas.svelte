@@ -28,7 +28,8 @@
 
 	const sketch = (p5) => {
 		p5.setup = () => {
-			let width = window.innerWidth > 1024 ? window.innerWidth / 2 : window.innerWidth - 80;
+			let width = window.innerWidth >= 1024 ? window.innerWidth / 2 : window.innerWidth - 80;
+			width = window.innerWidth < 640 ? window.innerWidth - 60 : width;
 			p5.createCanvas(width, 250);
 			beamLength = p5.width - 40;
 			maxArrowHeight = p5.height / 2 - 40;
@@ -127,7 +128,7 @@
 			color
 		);
 		if (label) {
-			drawLabel(p5, x, -y - Math.sign(mag) * beamHeight, `${formatMag(mag)} ${unit}`);
+			drawLabel(p5, x, -y - Math.sign(mag) * beamHeight, `${formatMag(Math.abs(mag))} ${unit}`);
 		}
 	}
 

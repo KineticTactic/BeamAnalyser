@@ -1,6 +1,8 @@
 <script>
+	import InputField from './InputField.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { JointTypes, RollerJoint, PinnedJoint, FixedJoint } from './Joint.js';
+	import ChipSelect from './ChipSelect.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -50,25 +52,18 @@
 <div class="mb-4">
 	<h2 class="pastel-heading mb-3 text-xl font-bold">Input Joints</h2>
 	<div class="mb-3 flex flex-wrap items-end gap-2">
-		<select
-			bind:value={selectedType}
-			class="rounded border border-[#e3d8f3] p-1 focus:ring-2 focus:ring-[#a084e8] focus:outline-none"
-		>
-			{#each Object.values(JointTypes) as type}
-				<option value={type}>{type}</option>
-			{/each}
-		</select>
-		<label class="flex items-center gap-1 font-medium">
-			Position:
-			<input
-				type="number"
-				bind:value={pos}
-				bind:this={posInput}
-				class="pastel-input w-20 rounded border border-[#e3d8f3] p-1 focus:ring-2 focus:ring-[#a084e8] focus:outline-none"
-				min="0"
-				on:keydown={handleKeydown}
-			/>
-		</label>
+		<ChipSelect
+			options={Object.values(JointTypes)}
+			selected={selectedType}
+			onSelect={(type) => (selectedType = type)}
+		/>
+		<InputField
+			label="Position:"
+			bind:value={pos}
+			inputRef={posInput}
+			min={0}
+			onKeydown={handleKeydown}
+		/>
 		<button
 			on:click={addJoint}
 			class="pastel-green-btn flex items-center gap-1 rounded px-3 py-1 font-semibold"

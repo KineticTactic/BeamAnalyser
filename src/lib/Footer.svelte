@@ -42,7 +42,7 @@
 	}
 	.footer-link {
 		color: #6155bd;
-		text-decoration: underline;
+		/* text-decoration: underline; */
 		font-weight: 500;
 		transition: color 0.15s;
 	}
