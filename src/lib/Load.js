@@ -1,9 +1,12 @@
+import { parser } from "mathjs";
+
 export const LoadTypes = {
 	POINT: "point",
 	UNIFORM: "uniform",
 	LINEAR: "linear",
 	PARABOLIC: "parabolic",
-	MOMENT: "moment"
+	MOMENT: "moment",
+	CUSTOM: "custom"
 };
 
 export class LoadEffect {
@@ -19,6 +22,7 @@ export class Load {
 			throw new Error(`Invalid load type: ${type}`);
 		}
 		this.type = type;
+		this.maxMag = 0;
 	}
 
 	describe() {
@@ -31,6 +35,7 @@ export class PointLoad extends Load {
 		super(LoadTypes.POINT);
 		this.mag = mag; // Positive is downward
 		this.pos = pos; // pos along the beam
+		this.maxMag = mag;
 	}
 
 	describe() {
@@ -54,6 +59,7 @@ export class UniformLoad extends Load {
 		this.mag = mag; // Positive is downward
 		this.start = start; // Start position along the beam
 		this.end = end; // End position along the beam
+		this.maxMag = mag;
 	}
 
 	describe() {
@@ -88,6 +94,7 @@ export class LinearLoad extends Load {
 		this.endMag = endmag; // mag at end position
 		this.start = start; // Start position along the beam
 		this.end = end; // End position along the beam
+		this.maxMag = Math.max(Math.abs(startmag), Math.abs(endmag));
 	}
 
 	describe() {
@@ -150,6 +157,7 @@ export class ParabolicLoad extends Load {
 		this.endMag = endmag; // mag at end position
 		this.start = start; // Start position along the beam
 		this.end = end; // End position along the beam
+		this.maxMag = Math.max(Math.abs(startmag), Math.abs(endmag));
 	}
 
 	describe() {
@@ -236,5 +244,63 @@ export class MomentLoad extends Load {
 
 		let m = this.mag;
 		return new LoadEffect(0, m);
+	}
+}
+
+export class CustomLoad extends Load {
+	constructor(start, end, loadExpr) {
+		super(LoadTypes.CUSTOM);
+		this.start = start; // Start position along the beam
+		this.end = end; // End position along the beam
+		this.loadExpr = loadExpr; // Expression defining load intensity at position x
+		this.parser = parser();
+		this.parser.evaluate(`f(x) = ${this.loadExpr}`);
+		this.loadFunc = this.parser.get("f");
+
+		this.dx = 0.001;
+		this.effectsCache = [];
+	}
+
+	describe() {
+		return `custom load ${this.loadExpr} from ${this.start} m to ${this.end} m`;
+	}
+
+	preCalculateEffects(length, dx) {
+		this.effectsCache = Array(Math.ceil(length / dx) + 1).fill(0);
+		this.dx = dx;
+		this.maxMag = 0;
+
+		let wSum = 0;
+		let wxSum = 0;
+		console.log("Precalculating...");
+
+		for (let i = 0; i < this.effectsCache.length; i++) {
+			let x = i * dx;
+
+			if (x < this.start) {
+				this.effectsCache[i] = new LoadEffect(0, 0);
+			} else if (x >= this.start && x <= this.end) {
+				let forcePerUnit = this.loadFunc(x);
+
+				this.maxMag = Math.max(this.maxMag, Math.abs(forcePerUnit));
+
+				let w = forcePerUnit * dx;
+				wSum += w;
+
+				wxSum += w * x;
+
+				let centroid = wxSum / wSum;
+				let m = wSum * (x - centroid);
+				this.effectsCache[i] = new LoadEffect(wSum, m);
+			} else if (x > this.end) {
+				let centroid = wxSum / wSum;
+				let m = wSum * (x - centroid);
+				this.effectsCache[i] = new LoadEffect(wSum, m);
+			}
+		}
+	}
+
+	calculateEffectAt(x) {
+		return this.effectsCache[Math.floor(x / this.dx)];
 	}
 }

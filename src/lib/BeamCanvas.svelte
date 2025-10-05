@@ -40,17 +40,7 @@
 			maxMag = 0;
 			maxRxnMag = 0;
 			for (let load of beam.loads) {
-				if (load.type === LoadTypes.POINT) {
-					if (Math.abs(load.mag) > maxMag) maxMag = Math.abs(load.mag);
-				} else if (load.type === LoadTypes.UNIFORM) {
-					if (Math.abs(load.mag) > maxMag) maxMag = Math.abs(load.mag);
-				} else if (load.type === LoadTypes.LINEAR) {
-					if (Math.abs(load.startMag) > maxMag) maxMag = Math.abs(load.startMag);
-					if (Math.abs(load.endMag) > maxMag) maxMag = Math.abs(load.endMag);
-				} else if (load.type === LoadTypes.PARABOLIC) {
-					if (Math.abs(load.startMag) > maxMag) maxMag = Math.abs(load.startMag);
-					if (Math.abs(load.endMag) > maxMag) maxMag = Math.abs(load.endMag);
-				}
+				maxMag = Math.max(maxMag, Math.abs(load.maxMag));
 			}
 			for (let joint of beam.joints) {
 				if (Math.abs(joint.ry) > maxRxnMag) maxRxnMag = Math.abs(joint.ry);
@@ -91,6 +81,8 @@
 						load.startMag,
 						load.endMag
 					);
+				} else if (load.type === LoadTypes.CUSTOM) {
+					drawCustomLoad(p5, load);
 				}
 			}
 
@@ -365,6 +357,36 @@
 
 			drawLabel(p5, x, -radius - 5, `${formatMag(rm)} kN·m`);
 		}
+	}
+
+	function drawCustomLoad(p5, load) {
+		const startX = (load.start / beam.length) * beamLength;
+		const endX = (load.end / beam.length) * beamLength;
+		const numPoints = 50;
+
+		p5.beginShape();
+		p5.fill(255, 0, 0, 100);
+		p5.noStroke();
+		p5.vertex(startX, -beamHeight / 2);
+		for (let i = 0; i <= numPoints; i++) {
+			const t = i / numPoints;
+			const x = startX + t * (endX - startX);
+			const beamX = load.start + t * (load.end - load.start);
+			const force = load.loadFunc(beamX);
+
+			///TODO: Implement maxMag
+			const y = -beamHeight / 2 - (force / maxMag) * maxArrowHeight;
+			p5.vertex(x, y);
+		}
+		p5.vertex(endX, -beamHeight / 2);
+		p5.endShape(p5.CLOSE);
+
+		drawLabel(
+			p5,
+			(startX + endX) / 2,
+			-(load.maxMag / maxMag) * maxArrowHeight - Math.sign(maxMag) * beamHeight,
+			load.loadExpr
+		);
 	}
 </script>
 

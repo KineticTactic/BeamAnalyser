@@ -108,6 +108,14 @@ export class Beam {
 	}
 
 	calculateBeam() {
+		const dx = 0.001;
+		// Precalculate effects for custom loads
+		for (let load of this.loads) {
+			if (load.type === LoadTypes.CUSTOM) {
+				load.preCalculateEffects(this.length, dx);
+			}
+		}
+
 		try {
 			this.verifyBeam();
 		} catch (error) {
@@ -116,7 +124,6 @@ export class Beam {
 			return null;
 		}
 
-		const dx = 0.001;
 		console.log(this.length, this.loads, this.joints);
 
 		let shear = [];

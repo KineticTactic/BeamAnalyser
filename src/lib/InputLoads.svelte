@@ -7,30 +7,35 @@
 		LinearLoad,
 		UniformLoad,
 		ParabolicLoad,
-		MomentLoad
+		MomentLoad,
+		CustomLoad
 	} from "./Load.js";
 	import InputField from "./InputField.svelte";
 	import ChipSelect from "./ChipSelect.svelte";
 
 	const dispatch = createEventDispatcher();
 
+	export let beamLength = 10;
+
 	//let newLoad = new Load();
 
 	export let loads = [];
 	// loads = [new PointLoad(0, 10), new UniformLoad(2, 6, 5), new LinearLoad(7, 10, 1, 10)];
-	loads = [
-		new ParabolicLoad(1, 5, 1, 11),
-		new MomentLoad(8, 10),
-		new UniformLoad(2, 5, -5),
-		new LinearLoad(3, 9, 2, 4),
-		new PointLoad(0.5, 10)
-	];
+	// loads = [
+	// 	new ParabolicLoad(1, 5, 1, 11),
+	// 	new MomentLoad(8, 10),
+	// 	new UniformLoad(2, 5, -5),
+	// 	new LinearLoad(3, 9, 2, 4),
+	// 	new PointLoad(0.5, 10)
+	// ];
+	loads = [new CustomLoad(2, 4, "x")];
+	loads[0].preCalculateEffects(beamLength, 0.001);
 
 	let selectedType = LoadTypes.POINT;
 	let pos, mag, start, end, magStart, magEnd;
 
 	// Refs for focusing
-	let posInput, magInput, startInput, endInput, magStartInput, magEndInput;
+	let posInput, magInput, startInput, endInput, magStartInput, magEndInput, loadFuncInput;
 
 	function getRequiredFields(type) {
 		if (type === LoadTypes.POINT) return [pos, mag];
@@ -38,6 +43,7 @@
 		if (type === LoadTypes.LINEAR) return [start, end, magStart, magEnd];
 		if (type === LoadTypes.MOMENT) return [pos, mag];
 		if (type === LoadTypes.PARABOLIC) return [start, end, magStart, magEnd];
+		if (type === LoadTypes.CUSTOM) return [start, end, loadFuncInput];
 		return [];
 	}
 
@@ -60,6 +66,7 @@
 				if (type === LoadTypes.LINEAR && startInput) startInput.focus();
 				if (type === LoadTypes.MOMENT && posInput) posInput.focus();
 				if (type === LoadTypes.PARABOLIC && startInput) startInput.focus();
+				if (type === LoadTypes.CUSTOM && startInput) startInput.focus();
 			}, 0);
 		}
 	}
@@ -77,6 +84,9 @@
 			newLoad = new MomentLoad(pos, mag);
 		} else if (selectedType === LoadTypes.PARABOLIC) {
 			newLoad = new ParabolicLoad(start, end, magStart, magEnd);
+		} else if (selectedType === LoadTypes.CUSTOM) {
+			newLoad = new CustomLoad(start, end, loadFuncInput);
+			newLoad.preCalculateEffects(beamLength, 0.001);
 		}
 
 		loads = [...loads, newLoad];
@@ -85,7 +95,7 @@
 		console.log(loads);
 
 		// Reset input fields
-		pos = mag = start = end = magStart = magEnd = null;
+		pos = mag = start = end = magStart = magEnd = loadFuncInput = null;
 	}
 
 	function removeLoad(index) {
@@ -211,6 +221,28 @@
 				bind:value={magEnd}
 				inputRef={magEndInput}
 				onKeydown={(e) => handleKeydown(e, LoadTypes.PARABOLIC)}
+			/>
+		{:else if selectedType === LoadTypes.CUSTOM}
+			<InputField
+				label="Start Position:"
+				bind:value={start}
+				inputRef={startInput}
+				min={0}
+				onKeydown={(e) => handleKeydown(e, LoadTypes.CUSTOM)}
+			/>
+			<InputField
+				label="End Position:"
+				bind:value={end}
+				inputRef={endInput}
+				min={0}
+				onKeydown={(e) => handleKeydown(e, LoadTypes.CUSTOM)}
+			/>
+			<InputField
+				label="Load Function (kN/m):"
+				bind:value={loadFuncInput}
+				inputRef={loadFuncInput}
+				onKeydown={(e) => handleKeydown(e, LoadTypes.CUSTOM)}
+				type="text"
 			/>
 		{/if}
 
