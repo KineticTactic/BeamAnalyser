@@ -5,14 +5,11 @@
 	import { Beam } from './Beam';
 	import { onMount } from 'svelte';
 	import { max } from 'mathjs';
+	import { formatMag } from './common';
 
 	export let beam = new Beam(10);
 
 	let canvas;
-
-	function formatMag(val) {
-		return Number(val) % 1 === 0 ? Number(val).toString() : Number(val).toFixed(2);
-	}
 
 	let beamLength;
 	let beamHeight = 20;
