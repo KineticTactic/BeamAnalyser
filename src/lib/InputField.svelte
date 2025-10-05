@@ -1,11 +1,11 @@
 <script>
-	export let label = '';
+	export let label = "";
 	export let value;
 	export let inputRef;
 	export let min = undefined;
 	export let onKeydown = undefined;
 	// Accepts all other props via $$restProps
-	export let type = 'number';
+	export let type = "number";
 </script>
 
 <label class="flex items-center gap-1 font-medium">

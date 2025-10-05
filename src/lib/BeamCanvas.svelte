@@ -1,11 +1,11 @@
 <script>
-	import P5 from 'p5-svelte';
-	import { LoadTypes } from './Load';
-	import { JointTypes } from './Joint';
-	import { Beam } from './Beam';
-	import { onMount } from 'svelte';
-	import { max } from 'mathjs';
-	import { formatMag } from './common';
+	import P5 from "p5-svelte";
+	import { LoadTypes } from "./Load";
+	import { JointTypes } from "./Joint";
+	import { Beam } from "./Beam";
+	import { onMount } from "svelte";
+	import { max } from "mathjs";
+	import { formatMag } from "./common";
 
 	export let beam = new Beam(10);
 
@@ -59,8 +59,8 @@
 			p5.background(255);
 			p5.clear();
 			p5.translate(20, p5.height / 2);
-			p5.fill('#8B4513');
-			p5.stroke('black');
+			p5.fill("#8B4513");
+			p5.stroke("black");
 			p5.rect(0, -beamHeight / 2, beamLength, beamHeight);
 
 			for (let load of beam.loads) {
@@ -111,10 +111,10 @@
 	};
 
 	function drawPointLoad(p5, x, mag) {
-		drawMagArrow(p5, x, mag, 'red');
+		drawMagArrow(p5, x, mag, "red");
 	}
 
-	function drawMagArrow(p5, x, mag, color, label = true, unit = 'kN', endOffset = 0, rxn = false) {
+	function drawMagArrow(p5, x, mag, color, label = true, unit = "kN", endOffset = 0, rxn = false) {
 		let y = (mag / (rxn ? maxRxnMag : maxMag)) * maxArrowHeight;
 		drawArrow(
 			p5,
@@ -129,7 +129,7 @@
 		}
 	}
 
-	function drawArrow(p5, x1, y1, x2, y2, color = 'red') {
+	function drawArrow(p5, x1, y1, x2, y2, color = "red") {
 		arrowsToDraw.push({ x1, y1, x2, y2, color });
 	}
 
@@ -183,7 +183,7 @@
 				tries++;
 			}
 			// Draw the text
-			p5.fill('black');
+			p5.fill("black");
 			p5.noStroke();
 			p5.textAlign(p5.CENTER, p5.CENTER);
 			p5.text(label, finalX, y + offsetY);
@@ -227,8 +227,8 @@
 		p5.vertex(startX, -beamHeight / 2 - (magStart / maxMag) * maxArrowHeight);
 		p5.endShape(p5.CLOSE);
 
-		drawMagArrow(p5, startX, magStart, 'red', true, 'kN/m');
-		drawMagArrow(p5, endX, magEnd, 'red', true, 'kN/m');
+		drawMagArrow(p5, startX, magStart, "red", true, "kN/m");
+		drawMagArrow(p5, endX, magEnd, "red", true, "kN/m");
 	}
 
 	function drawParabolicLoad(p5, startX, endX, startMag, endMag) {
@@ -250,14 +250,14 @@
 		p5.vertex(endX, -beamHeight / 2);
 		p5.endShape(p5.CLOSE);
 
-		drawMagArrow(p5, startX, startMag, 'red', true, 'kN/m');
-		drawMagArrow(p5, endX, endMag, 'red', true, 'kN/m');
+		drawMagArrow(p5, startX, startMag, "red", true, "kN/m");
+		drawMagArrow(p5, endX, endMag, "red", true, "kN/m");
 	}
 
 	function drawMomentLoad(p5, x, mag) {
 		const radius = 20;
 		p5.noFill();
-		p5.stroke('magenta');
+		p5.stroke("magenta");
 		p5.strokeWeight(2);
 		if (mag > 0) {
 			// clockwise
@@ -270,7 +270,7 @@
 			p5.push();
 			p5.translate(arrowX, arrowY);
 			p5.rotate(angle + p5.PI / 2);
-			p5.fill('magenta');
+			p5.fill("magenta");
 			p5.noStroke();
 			p5.triangle(-arrowSize, arrowSize * 2 - 8, arrowSize, arrowSize * 2 - 8, 0, -8);
 			p5.pop();
@@ -287,49 +287,49 @@
 			p5.push();
 			p5.translate(arrowX, arrowY);
 			p5.rotate(angle - p5.PI / 2);
-			p5.fill('magenta');
+			p5.fill("magenta");
 			p5.noStroke();
 			p5.triangle(-arrowSize, arrowSize * 2 - 8, arrowSize, arrowSize * 2 - 8, 0, -8);
 			p5.pop();
 
 			// Moment text
-			p5.fill('black');
+			p5.fill("black");
 			p5.noStroke();
 			p5.textSize(12);
 			p5.text(`${formatMag(mag)} kN·m`, x + radius + 5, +20);
 		}
 		// Dot
-		p5.fill('magenta');
+		p5.fill("magenta");
 		p5.noStroke();
 		p5.ellipse(x, 0, 5, 5);
 	}
 
 	function drawRollerJoint(p5, x, ry) {
-		p5.fill('purple');
+		p5.fill("purple");
 		p5.noStroke();
 		p5.ellipse(x, +20, 20, 20);
-		p5.stroke('black');
+		p5.stroke("black");
 		p5.line(x - 15, +30, x + 15, +30);
 		p5.line(x - 10, +35, x + 10, +35);
 		p5.line(x - 5, +40, x + 5, +40);
 
 		if (ry != 0) {
-			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20, true);
+			drawMagArrow(p5, x, -ry, "green", true, "kN", 20, true);
 		}
 	}
 
 	function drawPinJoint(p5, x, ry) {
-		p5.fill('purple');
+		p5.fill("purple");
 		p5.noStroke();
 		p5.triangle(x - 10, 30, x + 10, 30, x, 10);
 
 		if (ry !== 0) {
-			drawMagArrow(p5, x, -ry, 'green', true, 'kN', 20, true);
+			drawMagArrow(p5, x, -ry, "green", true, "kN", 20, true);
 		}
 	}
 
 	function drawFixedJoint(p5, x, ry, rm) {
-		p5.fill('purple');
+		p5.fill("purple");
 		p5.noStroke();
 		if (x === 0) {
 			p5.rect(x - 10, -30, 10, 70);
@@ -340,14 +340,14 @@
 		}
 
 		if (ry !== 0) {
-			drawMagArrow(p5, x, ry, 'green', true, 'kN', 20, true);
+			drawMagArrow(p5, x, ry, "green", true, "kN", 20, true);
 		}
 
 		if (rm !== 0) {
 			// Draw moment arrow
 			const radius = 15;
 			p5.noFill();
-			p5.stroke('green');
+			p5.stroke("green");
 			p5.strokeWeight(2);
 			p5.arc(x, 0, radius * 2, radius * 2, 0, p5.PI);
 			// Arrowhead
@@ -358,7 +358,7 @@
 			p5.push();
 			p5.translate(arrowX, arrowY);
 			p5.rotate(angle + p5.PI / 2);
-			p5.fill('green');
+			p5.fill("green");
 			p5.noStroke();
 			p5.triangle(-arrowSize, arrowSize * 2 - 8, arrowSize, arrowSize * 2 - 8, 0, -8);
 			p5.pop();

@@ -1,5 +1,5 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from "svelte";
 	import {
 		Load,
 		LoadTypes,
@@ -8,9 +8,9 @@
 		UniformLoad,
 		ParabolicLoad,
 		MomentLoad
-	} from './Load.js';
-	import InputField from './InputField.svelte';
-	import ChipSelect from './ChipSelect.svelte';
+	} from "./Load.js";
+	import InputField from "./InputField.svelte";
+	import ChipSelect from "./ChipSelect.svelte";
 
 	const dispatch = createEventDispatcher();
 
@@ -45,12 +45,12 @@
 		console.log(type);
 
 		console.log(getRequiredFields(type));
-		console.log(getRequiredFields(type).every((v) => v !== null && v !== undefined && v !== ''));
-		return getRequiredFields(type).every((v) => v !== null && v !== undefined && v !== '');
+		console.log(getRequiredFields(type).every((v) => v !== null && v !== undefined && v !== ""));
+		return getRequiredFields(type).every((v) => v !== null && v !== undefined && v !== "");
 	}
 
 	function handleKeydown(e, type) {
-		if (e.key !== 'Enter') return;
+		if (e.key !== "Enter") return;
 
 		if (allFieldsFilled(type)) {
 			addLoad();
@@ -80,7 +80,7 @@
 		}
 
 		loads = [...loads, newLoad];
-		dispatch('update', { loads });
+		dispatch("update", { loads });
 
 		console.log(loads);
 
@@ -90,7 +90,7 @@
 
 	function removeLoad(index) {
 		loads = loads.filter((_, i) => i !== index);
-		dispatch('update', { loads });
+		dispatch("update", { loads });
 	}
 </script>
 

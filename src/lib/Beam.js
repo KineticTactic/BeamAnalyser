@@ -1,5 +1,5 @@
-import { JointTypes } from './Joint.js';
-import { LoadTypes } from './Load.js';
+import { JointTypes } from "./Joint.js";
+import { LoadTypes } from "./Load.js";
 
 export class Beam {
 	constructor(length, loads = [], joints = []) {
@@ -45,11 +45,11 @@ export class Beam {
 		// Verify if the number of unknowns in reactions at joints is equal to the number of equations available (3 for 2D problems)
 		let unknowns = 0;
 		for (let joint of this.joints) {
-			if (joint.type === 'fixed') {
+			if (joint.type === "fixed") {
 				unknowns += 3; // Vertical, Horizontal, Moment
-			} else if (joint.type === 'pinned') {
+			} else if (joint.type === "pinned") {
 				unknowns += 2; // Vertical, Horizontal
-			} else if (joint.type === 'roller') {
+			} else if (joint.type === "roller") {
 				unknowns += 1; // Vertical only
 			}
 		}
@@ -66,7 +66,7 @@ export class Beam {
 		// All roller joint reactions should be positive (upward)
 		for (let joint of this.joints) {
 			if (joint.type === JointTypes.ROLLER && joint.ry < 0) {
-				throw new Error('Roller joint reaction cannot be negative (downward).');
+				throw new Error("Roller joint reaction cannot be negative (downward).");
 			}
 		}
 
@@ -101,17 +101,17 @@ export class Beam {
 			fixedJoint.rx = 0;
 			fixedJoint.rm = -netMoment + netForce * (this.length - fixedJoint.pos);
 		} else {
-			throw new Error('Unsupported joint configuration for reaction calculation.');
+			throw new Error("Unsupported joint configuration for reaction calculation.");
 		}
 
-		console.log('Net downward force on beam: ', netForce, ' kN');
+		console.log("Net downward force on beam: ", netForce, " kN");
 	}
 
 	calculateBeam() {
 		try {
 			this.verifyBeam();
 		} catch (error) {
-			console.error('Beam verification failed:', error.message);
+			console.error("Beam verification failed:", error.message);
 			alert(`Beam verification failed: ${error.message}`);
 			return null;
 		}

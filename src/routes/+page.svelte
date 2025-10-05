@@ -1,12 +1,12 @@
 <script>
-	import Footer from '$lib/Footer.svelte';
-	import { onMount } from 'svelte';
-	import BeamCanvas from '$lib/BeamCanvas.svelte';
-	import Plot from '$lib/Plot.svelte';
-	import InputLoads from '$lib/InputLoads.svelte';
-	import InputJoints from '$lib/InputJoints.svelte';
-	import { PointLoad } from '$lib/Load';
-	import { Beam } from '$lib/Beam';
+	import Footer from "$lib/Footer.svelte";
+	import { onMount } from "svelte";
+	import BeamCanvas from "$lib/BeamCanvas.svelte";
+	import Plot from "$lib/Plot.svelte";
+	import InputLoads from "$lib/InputLoads.svelte";
+	import InputJoints from "$lib/InputJoints.svelte";
+	import { PointLoad } from "$lib/Load";
+	import { Beam } from "$lib/Beam";
 
 	let length = 10;
 	let loads = [];

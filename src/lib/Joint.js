@@ -1,7 +1,7 @@
 export const JointTypes = {
-	ROLLER: 'roller',
-	PINNED: 'pinned',
-	FIXED: 'fixed'
+	ROLLER: "roller",
+	PINNED: "pinned",
+	FIXED: "fixed"
 };
 
 class Joint {

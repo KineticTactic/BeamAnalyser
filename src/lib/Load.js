@@ -1,9 +1,9 @@
 export const LoadTypes = {
-	POINT: 'point',
-	UNIFORM: 'uniform',
-	LINEAR: 'linear',
-	PARABOLIC: 'parabolic',
-	MOMENT: 'moment'
+	POINT: "point",
+	UNIFORM: "uniform",
+	LINEAR: "linear",
+	PARABOLIC: "parabolic",
+	MOMENT: "moment"
 };
 
 export class LoadEffect {
@@ -22,7 +22,7 @@ export class Load {
 	}
 
 	describe() {
-		throw new Error('Describe method not implemented for base Load class');
+		throw new Error("Describe method not implemented for base Load class");
 	}
 }
 

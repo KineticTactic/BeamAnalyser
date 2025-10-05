@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 
 body,
@@ -53,12 +53,12 @@ h2.pastel-heading {
 	transform: translateY(-2px) scale(1.03);
 	transition: background 0.1s cubic-bezier(.4,0,.2,1), color 0.1s cubic-bezier(.4,0,.2,1), box-shadow 0.1s cubic-bezier(.4,0,.2,1), transform 0.1s cubic-bezier(.4,0,.2,1);
 }
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
-input[type='number'] {
+input[type="number"] {
     appearance: textfield;
 	-moz-appearance: textfield;
 }
@@ -87,7 +87,7 @@ input[type='number'] {
 	color: #a8324a;
 	box-shadow: 0 4px 16px 0 #ffb3c633;
 }
-@import 'tailwindcss';
+@import "tailwindcss";
 
 #defaultCanvas0 {
     position: relative;

@@ -1,7 +1,7 @@
 <script>
-	import Plotly from 'plotly.js-dist-min';
-	import { onMount } from 'svelte';
-	import { formatMag } from './common';
+	import Plotly from "plotly.js-dist-min";
+	import { onMount } from "svelte";
+	import { formatMag } from "./common";
 
 	export let data = [];
 	export let name;
@@ -83,23 +83,23 @@
 				{
 					x: data.map((d) => d.x),
 					y: data.map((d) => d.y),
-					type: 'scatter',
-					mode: 'lines',
+					type: "scatter",
+					mode: "lines",
 					name: name,
-					fill: 'tozeroy',
-					fillcolor: 'rgba(160, 132, 232, 0.18)',
-					line: { color: '#a084e8' },
+					fill: "tozeroy",
+					fillcolor: "rgba(160, 132, 232, 0.18)",
+					line: { color: "#a084e8" },
 					showlegend: false
 				},
 				{
 					x: [maxPoint.x],
 					y: [maxPoint.y],
-					type: 'scatter',
-					mode: 'markers+text',
-					marker: { color: '#a084e8', size: 8, symbol: 'circle' },
+					type: "scatter",
+					mode: "markers+text",
+					marker: { color: "#a084e8", size: 8, symbol: "circle" },
 					text: formatMag(maxMag),
-					textposition: 'top center',
-					name: 'Max Magnitude',
+					textposition: "top center",
+					name: "Max Magnitude",
 					showlegend: false
 				}
 			],
@@ -109,21 +109,21 @@
 				autosize: true,
 				height: window.innerHeight / 3,
 				font: { size: 13 },
-				paper_bgcolor: 'rgba(0,0,0,0)',
-				plot_bgcolor: 'rgba(0,0,0,0)',
-				dragmode: 'pan',
+				paper_bgcolor: "rgba(0,0,0,0)",
+				plot_bgcolor: "rgba(0,0,0,0)",
+				dragmode: "pan",
 				xaxis: {
-					gridcolor: '#bdbdbd',
+					gridcolor: "#bdbdbd",
 					gridwidth: 0.5,
 					zeroline: true,
-					zerolinecolor: '#888',
+					zerolinecolor: "#888",
 					zerolinewidth: 2
 				},
 				yaxis: {
-					gridcolor: '#bdbdbd',
+					gridcolor: "#bdbdbd",
 					gridwidth: 0.5,
 					zeroline: true,
-					zerolinecolor: '#888',
+					zerolinecolor: "#888",
 					zerolinewidth: 2
 				}
 			}

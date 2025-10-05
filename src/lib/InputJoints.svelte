@@ -1,8 +1,8 @@
 <script>
-	import InputField from './InputField.svelte';
-	import { createEventDispatcher } from 'svelte';
-	import { JointTypes, RollerJoint, PinnedJoint, FixedJoint } from './Joint.js';
-	import ChipSelect from './ChipSelect.svelte';
+	import InputField from "./InputField.svelte";
+	import { createEventDispatcher } from "svelte";
+	import { JointTypes, RollerJoint, PinnedJoint, FixedJoint } from "./Joint.js";
+	import ChipSelect from "./ChipSelect.svelte";
 
 	const dispatch = createEventDispatcher();
 
@@ -16,7 +16,7 @@
 	let posInput;
 
 	function handleKeydown(e) {
-		if (e.key === 'Enter' && pos !== null && pos !== undefined && pos !== '') {
+		if (e.key === "Enter" && pos !== null && pos !== undefined && pos !== "") {
 			addJoint();
 			// Move focus back to the input field for quick entry
 			setTimeout(() => {
@@ -26,7 +26,7 @@
 	}
 
 	function addJoint() {
-		if (pos === null || pos === undefined || pos === '') return;
+		if (pos === null || pos === undefined || pos === "") return;
 		let newJoint;
 		if (selectedType === JointTypes.ROLLER) {
 			newJoint = new RollerJoint(pos);
@@ -37,7 +37,7 @@
 		}
 
 		joints = [...joints, newJoint];
-		dispatch('update', { joints });
+		dispatch("update", { joints });
 
 		// Reset input field
 		pos = null;
@@ -45,7 +45,7 @@
 
 	function removeJoint(index) {
 		joints = joints.filter((_, i) => i !== index);
-		dispatch('update', { joints });
+		dispatch("update", { joints });
 	}
 </script>
 
@@ -67,7 +67,7 @@
 		<button
 			on:click={addJoint}
 			class="pastel-green-btn flex items-center gap-1 rounded px-3 py-1 font-semibold"
-			disabled={pos === null || pos === undefined || pos === ''}
+			disabled={pos === null || pos === undefined || pos === ""}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
