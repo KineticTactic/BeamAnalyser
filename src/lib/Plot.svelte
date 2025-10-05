@@ -30,6 +30,7 @@
 				font: { size: 13 },
 				paper_bgcolor: 'rgba(0,0,0,0)',
 				plot_bgcolor: 'rgba(0,0,0,0)',
+				dragmode: 'pan',
 				xaxis: {
 					gridcolor: '#bdbdbd',
 					gridwidth: 0.5,
@@ -73,6 +74,7 @@
 				font: { size: 13 },
 				paper_bgcolor: 'rgba(0,0,0,0)',
 				plot_bgcolor: 'rgba(0,0,0,0)',
+				dragmode: 'pan',
 				xaxis: {
 					gridcolor: '#bdbdbd',
 					gridwidth: 0.5,

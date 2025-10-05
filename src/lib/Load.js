@@ -34,7 +34,7 @@ export class PointLoad extends Load {
 	}
 
 	describe() {
-		return `Point Load: ${this.mag} kN at ${this.pos} m`;
+		return `${this.mag} kN at ${this.pos} m`;
 	}
 
 	calculateEffectAt(x) {
@@ -57,7 +57,7 @@ export class UniformLoad extends Load {
 	}
 
 	describe() {
-		return `Uniform Load: ${this.mag} kN/m from ${this.start} m to ${this.end} m`;
+		return `${this.mag} kN/m from ${this.start} m to ${this.end} m`;
 	}
 
 	calculateEffectAt(x) {
@@ -91,7 +91,7 @@ export class LinearLoad extends Load {
 	}
 
 	describe() {
-		return `Linear Load: from ${this.startMag} kN/m at ${this.start} m to ${this.endMag} kN/m at ${this.end} m`;
+		return `from ${this.startMag} kN/m at ${this.start} m to ${this.endMag} kN/m at ${this.end} m`;
 	}
 
 	calculateEffectAt(x) {
@@ -153,7 +153,7 @@ export class ParabolicLoad extends Load {
 	}
 
 	describe() {
-		return `Parabolic Load: from ${this.startMag} kN/m at ${this.start} m to ${this.endMag} kN/m at ${this.end} m`;
+		return `from ${this.startMag} kN/m at ${this.start} m to ${this.endMag} kN/m at ${this.end} m`;
 	}
 
 	calculateEffectAt(x) {
@@ -226,7 +226,7 @@ export class MomentLoad extends Load {
 	}
 
 	describe() {
-		return `Moment Load: ${this.mag} kN·m at ${this.pos} m`;
+		return `${this.mag} kN·m at ${this.pos} m`;
 	}
 
 	calculateEffectAt(x) {

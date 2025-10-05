@@ -13,7 +13,7 @@ class Joint {
 	}
 
 	describe() {
-		throw new Error('Describe method not implemented for base Joint class');
+		return `${this.pos} m`;
 	}
 }
 
@@ -22,10 +22,6 @@ export class RollerJoint extends Joint {
 		super(JointTypes.ROLLER);
 		this.pos = pos; // pos along the beam
 		this.ry = 0; // Vertical reaction
-	}
-
-	describe() {
-		return `Roller Joint at ${this.pos} m`;
 	}
 }
 
@@ -36,10 +32,6 @@ export class PinnedJoint extends Joint {
 		this.ry = 0; // Vertical reaction
 		this.rx = 0; // Horizontal reaction
 	}
-
-	describe() {
-		return `Pinned Joint at ${this.pos} m`;
-	}
 }
 
 export class FixedJoint extends Joint {
@@ -49,9 +41,5 @@ export class FixedJoint extends Joint {
 		this.ry = 0; // Vertical reaction
 		this.rx = 0; // Horizontal reaction
 		this.rm = 0; // Moment reaction
-	}
-
-	describe() {
-		return `Fixed Joint at ${this.pos} m`;
 	}
 }

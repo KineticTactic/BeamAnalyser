@@ -237,8 +237,12 @@
 
 	<ul class="divide-y divide-[#f0eafd] rounded-lg border border-[#f0eafd] bg-white">
 		{#each loads as load, index}
-			<li class="flex items-center justify-between px-3 py-2">
+			<li class="flex items-center justify-between gap-3 px-3 py-2">
+				<span class="font-semibold"
+					>{load.type.charAt(0).toUpperCase() + load.type.slice(1)} Load:
+				</span>
 				<span class="text-sm">{load.describe()}</span>
+				<span class="flex-1"></span>
 				<button
 					on:click={() => removeLoad(index)}
 					class="pastel-red-btn flex items-center justify-center rounded-full p-2 transition-colors hover:bg-[#ffe4ec]"
@@ -262,14 +266,3 @@
 		{/each}
 	</ul>
 </div>
-
-<style>
-	.chip-toggle {
-		cursor: pointer;
-		box-shadow: 0 1px 2px 0 rgba(160, 132, 232, 0.04);
-	}
-	.chip-toggle:focus {
-		outline: 2px solid #a084e8;
-		outline-offset: 2px;
-	}
-</style>

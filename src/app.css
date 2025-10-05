@@ -88,3 +88,20 @@ input[type='number'] {
 	box-shadow: 0 4px 16px 0 #ffb3c633;
 }
 @import 'tailwindcss';
+
+#defaultCanvas0 {
+    position: relative;
+    pointer-events: none;;
+    user-select: none;
+}
+
+#defaultCanvas0::after {
+    content:" ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+}

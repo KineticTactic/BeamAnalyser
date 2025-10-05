@@ -47,7 +47,7 @@
 			</div>
 
 			<!-- Right: Diagram and Plots -->
-			<div class="pastel-panel flex flex-1 flex-col rounded-xl p-3 shadow-md sm:gap-4 sm:p-6">
+			<div class="pastel-panel flex flex-1 flex-col rounded-xl p-3 shadow-md sm:p-6">
 				<BeamCanvas {beam} />
 				{#if results}
 					<Plot data={results.sfd} name="Shear Force" />
