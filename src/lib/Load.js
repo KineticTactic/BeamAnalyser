@@ -291,7 +291,7 @@ export class CustomLoad extends Load {
 	}
 
 	describe() {
-		return `custom load ${this.loadExpr} from ${this.start} m to ${this.end} m`;
+		return `${this.loadExpr} from ${this.start} m to ${this.end} m`;
 	}
 
 	preCalculateEffects(length, dx) {

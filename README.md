@@ -4,16 +4,22 @@
 
 A modern, interactive web app for visualizing and analyzing beams under various loads and supports. Built with Svelte, Vite, Plotly.js, p5.js, and Tailwind CSS.
 
+![beam analyser](assets/SS.png)
+
 ## Features
 
 - 🏗️ **Beam Modeling**: Define beam length, add point loads, distributed loads, and supports.
 - 📊 **Interactive Visualization**: View real-time beam diagrams, Shear Force Diagrams (SFD), and Bending Moment Diagrams (BMD).
-- 🎨 **Pastel Theme**: Clean, modern, and accessible UI with a pastel color palette.
+- 🎨 **Custom loads**: Support for user-defined load functions like `2x + 5sin(3x)`.
 - 📱 **Responsive Design**: Works great on desktop and mobile, with adaptive layout.
 - 🧮 **Robust Validation**: Input validation and error highlighting for reliable results.
 - 🔗 **Open Source**: MIT licensed and available on [GitHub](https://github.com/KineticTactic/BeamAnalyser).
 
-## Getting Started
+## Acknowledgement
+
+This is a project given by our ME101 (Engineering Mechanics) Instructor, [Professor Tapan Krishnakumar Mankodi](https://www.iitg.ac.in/mech/faculty/tapan-krishnakumar-mankodi/). I am grateful to him for giving me a chance to utilise and apply the concepts he taught in class in a real, hands-on project.
+
+## Development Process
 
 ### Prerequisites
 

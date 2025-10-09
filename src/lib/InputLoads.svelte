@@ -22,16 +22,16 @@
 
 	export let loads = [];
 	// loads = [new PointLoad(0, 10), new UniformLoad(2, 6, 5), new LinearLoad(7, 10, 1, 10)];
-	// loads = [
-	// 	new ParabolicLoad(1, 5, 1, 11),
-	// 	new MomentLoad(8, 10),
-	// 	new UniformLoad(2, 5, -5),
-	// 	new LinearLoad(3, 9, 2, 4),
-	// 	new PointLoad(0.5, 10)
-	// ];
+	loads = [
+		new ParabolicLoad(1, 5, 1, 11),
+		new MomentLoad(8, 10),
+		new UniformLoad(2, 5, -5),
+		new LinearLoad(3, 9, 2, 4),
+		new PointLoad(0.5, 10)
+	];
 	// loads = [new CustomLoad(2, 4, "x")];
 	// loads[0].preCalculateEffects(beamLength, 0.001);
-	loads = [new LinearLoad(0, 10, -5, 5)];
+	// loads = [new LinearLoad(0, 10, -5, 5)];
 
 	let selectedType = LoadTypes.POINT;
 	let pos, mag, start, end, magStart, magEnd;
